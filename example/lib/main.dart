@@ -16,22 +16,19 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  StreamSubscription<dynamic> _subscriptionA;
-  StreamSubscription<dynamic> _subscriptionB;
+  StreamSubscription<dynamic>? _subscriptionA;
+  StreamSubscription<dynamic>? _subscriptionB;
 
   void _start(bool a) {
     // ignore: cancel_subscriptions
-    StreamSubscription<dynamic> subscription =
-        a ? _subscriptionA : _subscriptionB;
+    StreamSubscription<dynamic>? subscription = a ? _subscriptionA : _subscriptionB;
 
     if (subscription != null) {
       subscription.cancel();
       subscription = null;
     } else {
       final streamId = 'Stream ${a ? 'A' : 'B'}';
-      subscription = streamsChannel
-          .receiveBroadcastStream(streamId)
-          .listen((data) => debugPrint('Received from $streamId: $data'));
+      subscription = streamsChannel.receiveBroadcastStream(streamId).listen((data) => debugPrint('Received from $streamId: $data'));
 
       subscription.onDone(() {
         setState(() {
@@ -64,11 +61,11 @@ class _MyAppState extends State<MyApp> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              new FlatButton(
+              new TextButton(
                 onPressed: () => _start(true),
                 child: Text(_subscriptionA != null ? 'Stop A' : 'Start A'),
               ),
-              new FlatButton(
+              new TextButton(
                 onPressed: () => _start(false),
                 child: Text(_subscriptionB != null ? 'Stop B' : 'Start B'),
               ),

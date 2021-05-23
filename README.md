@@ -1,3 +1,8 @@
+Forked from https://github.com/loup-v/streams_channel to:
+- migrate to null safety
+- upgrade tooling and dependencies
+- fix deprecation warnings
+
 # StreamsChannel for Flutter plugin development
 
 [![pub package](https://img.shields.io/pub/v/streams_channel.svg)](https://pub.dartlang.org/packages/streams_channel)

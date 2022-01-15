@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.UiThread;
 
 import java.nio.ByteBuffer;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -145,7 +146,7 @@ public final class StreamsChannel {
         }
 
         private void logError(int id, String message, Throwable e) {
-            Log.e(TAG + name, String.format("%s [id=%d]", message, id), e);
+            Log.e(TAG + name, String.format(Locale.ROOT, "%s [id=%d]", message, id), e);
         }
 
         private final class EventSinkImplementation implements EventChannel.EventSink {
@@ -157,7 +158,7 @@ public final class StreamsChannel {
             @SuppressLint("DefaultLocale")
             private EventSinkImplementation(int id) {
                 this.id = id;
-                this.name = String.format("%s#%d", StreamsChannel.this.name, id);
+                this.name = String.format(Locale.ROOT, "%s#%d", StreamsChannel.this.name, id);
             }
 
             @Override

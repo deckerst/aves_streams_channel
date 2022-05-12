@@ -25,7 +25,7 @@ class StreamsChannel {
 
     late StreamController<dynamic> controller;
     controller = new StreamController<dynamic>.broadcast(onListen: () async {
-      ServicesBinding.instance!.defaultBinaryMessenger.setMessageHandler(handlerName, (ByteData? reply) async {
+      ServicesBinding.instance.defaultBinaryMessenger.setMessageHandler(handlerName, (ByteData? reply) async {
         if (reply == null) {
           controller.close();
         } else {
@@ -49,7 +49,7 @@ class StreamsChannel {
         ));
       }
     }, onCancel: () async {
-      ServicesBinding.instance!.defaultBinaryMessenger.setMessageHandler(handlerName, null);
+      ServicesBinding.instance.defaultBinaryMessenger.setMessageHandler(handlerName, null);
       try {
         await methodChannel.invokeMethod('cancel#$id', arguments);
       } catch (exception, stack) {

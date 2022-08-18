@@ -25,7 +25,7 @@ class StreamsChannel {
 
     late StreamController<dynamic> controller;
     controller = new StreamController<dynamic>.broadcast(onListen: () async {
-      ServicesBinding.instance.defaultBinaryMessenger.setMessageHandler(handlerName, (ByteData? reply) async {
+      _ambiguate(ServicesBinding.instance)!.defaultBinaryMessenger.setMessageHandler(handlerName, (ByteData? reply) async {
         if (reply == null) {
           controller.close();
         } else {
@@ -49,7 +49,7 @@ class StreamsChannel {
         ));
       }
     }, onCancel: () async {
-      ServicesBinding.instance.defaultBinaryMessenger.setMessageHandler(handlerName, null);
+      _ambiguate(ServicesBinding.instance)!.defaultBinaryMessenger.setMessageHandler(handlerName, null);
       try {
         await methodChannel.invokeMethod('cancel#$id', arguments);
       } catch (exception, stack) {
@@ -63,4 +63,12 @@ class StreamsChannel {
     });
     return controller.stream;
   }
+
+  /// This allows a value of type T or T?
+  /// to be treated as a value of type T?.
+  ///
+  /// We use this so that APIs that have become
+  /// non-nullable can still be used with `!` and `?`
+  /// to support older versions of the API as well.
+  T? _ambiguate<T>(T? value) => value;
 }

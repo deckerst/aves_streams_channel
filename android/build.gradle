@@ -3,7 +3,7 @@ version '1.0'
 
 buildscript {
     ext {
-        agp_version = '8.0.1'
+        agp_version = '8.5.0'
     }
 
     repositories {
@@ -30,7 +30,7 @@ android {
     compileSdk 34
 
     defaultConfig {
-        minSdkVersion 19
+        minSdkVersion 20
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
